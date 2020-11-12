@@ -30,10 +30,11 @@ class DateInput(forms.DateInput):
     input_type = 'date'
 # For extended fields apart from the User ones
 class StudentCreateForm(ModelForm):
-    faculty = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Faculty'}))
+    #faculty = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Faculty'}))
     birth_date = forms.DateField(widget=DateInput)
 
     class Meta:
         model = Student
-        fields = ('faculty', 'birth_date')
+        #fields = ('faculty', 'birth_date')
+        fields = ('birth_date',)
         widgets = {'birth_date': DateInput()}

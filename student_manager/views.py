@@ -22,8 +22,9 @@ def signup(request):
             mc = [micro_content_progress]
             unit_progress = UnitProgress.objects.create(name="unit_progress", micro_contents=mc)
             progress = [unit_progress]
-            student = Student.objects.create(user=user, faculty=request.POST["faculty"],
-                                             birth_date=request.POST['birth_date'], progress=progress)
+            #student = Student.objects.create(user=user, faculty=request.POST["faculty"],
+            #                                 birth_date=request.POST['birth_date'], progress=progress)
+            student = Student.objects.create(user=user, birth_date=request.POST['birth_date'], progress=progress)
             student.save()
 
             return render(request, 'student_manager/confirm_registration.html')
