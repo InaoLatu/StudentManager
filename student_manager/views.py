@@ -8,8 +8,10 @@ from student_manager.models import Student, UnitProgress, MicroContentProgress
 import requests
 from StudentManager import constants
 import logging
-logging.basicConfig(filename='app.log', filemode='w', format='%(levelname)s - %(message)s')
+from django.conf import settings
 
+appLog = settings.BASE_DIR + 'app.log'
+logging.basicConfig(filename=appLog, filemode='w', format='%(levelname)s - %(message)s')
 
 def signup(request):
     if request.method == 'POST':
