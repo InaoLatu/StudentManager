@@ -24,9 +24,9 @@ def signup(request):
             mc = [micro_content_progress]
             unit_progress = UnitProgress.objects.create(name="unit_progress", micro_contents=mc)
             progress = [unit_progress]
-            #student = Student.objects.create(user=user, faculty=request.POST["faculty"],
-            #                                 birth_date=request.POST['birth_date'], progress=progress)
-            student = Student.objects.create(user=user, birth_date=request.POST['birth_date'], progress=progress)
+            student = Student.objects.create(user=user, faculty=request.POST["faculty"],
+                                             birth_date=request.POST['birth_date'], progress=progress)
+            #student = Student.objects.create(user=user, birth_date=request.POST['birth_date'], progress=progress)
             student.save()
 
             return render(request, 'student_manager/confirm_registration.html')
@@ -43,7 +43,10 @@ def get_student_data(request, **kwargs):
 
 def update_student_progress(request, **kwargs):
     request_string = constants.AUTHORING_TOOL_IP + "units/" + kwargs['unit']
-    unit_micro_content = requests.get(request_string).json()
+    print("REQUEST")
+    print(request_string)
+    unit_micro_content = requests.get(request_string).json() #ERROR AQUÍ!!!!!!!!!!!!
+    print("UNIT_MICRO_CONTENT")
     print(unit_micro_content)
     mc_list = []
     for mc in unit_micro_content:

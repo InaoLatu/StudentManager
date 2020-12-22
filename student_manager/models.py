@@ -5,7 +5,8 @@ from djongo import models
 
 
 class MicroContentProgress(models.Model):
-    id = models.IntegerField(default=0, primary_key=True)
+    #MOD: falla al crear el id (clave duplicada). Django la crea por defecto correctamente
+    id = models.IntegerField(default=0, primary_key=True) 
     title = models.CharField(max_length=100)
     completed = models.BooleanField(default=False)
     mark = models.IntegerField(default=0)
@@ -19,6 +20,7 @@ class MicroContentProgress(models.Model):
 
 
 class UnitProgress(models.Model):
+    #MOD: falla al crear el id (clave duplicada). Django la crea por defecto correctamente
     id = models.IntegerField(default=0, primary_key=True)
     name = models.CharField(max_length=100)
     completed = models.BooleanField(default=False)
@@ -43,6 +45,7 @@ class Student(models.Model):
     alexa_id = models.CharField(max_length=1000)
     moodle_id = models.CharField(max_length=1000)
     birth_date = models.CharField(max_length=50, default='01/01/1901')
+    faculty = models.CharField(max_length=1000, default='student')
     progress = models.ArrayModelField(
         model_container=UnitProgress,
         default="-"
