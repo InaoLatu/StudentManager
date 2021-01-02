@@ -6,7 +6,8 @@ from djongo import models
 
 class MicroContentProgress(models.Model):
     #MOD: falla al crear el id (clave duplicada). Django la crea por defecto correctamente
-    id = models.IntegerField(default=0, primary_key=True) 
+    #Modificado por MK. Le  quito como primer parámetro default=0 y lo redefino como AutoField
+    micro_id = models.IntegerField(default=0) 
     title = models.CharField(max_length=100)
     completed = models.BooleanField(default=False)
     mark = models.IntegerField(default=0)
@@ -15,13 +16,14 @@ class MicroContentProgress(models.Model):
         return self.title
 
     def to_dict(self):
-        micro_content_dict = model_to_dict(self, fields=['id', 'title', 'completed', 'mark'])
+        micro_content_dict = model_to_dict(self, fields=['micro_id', 'title', 'completed', 'mark'])
         return micro_content_dict
 
 
 class UnitProgress(models.Model):
     #MOD: falla al crear el id (clave duplicada). Django la crea por defecto correctamente
-    id = models.IntegerField(default=0, primary_key=True)
+    #Modificado por MK. Idem que en el anterior
+    unit_id = models.IntegerField(default=0)
     name = models.CharField(max_length=100)
     completed = models.BooleanField(default=False)
     micro_contents = models.ArrayModelField(

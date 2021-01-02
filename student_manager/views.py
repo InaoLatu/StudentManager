@@ -20,9 +20,9 @@ def signup(request):
 
         if user_form.is_valid():
             user = user_form.save()
-            micro_content_progress = MicroContentProgress.objects.create(title="mc_aux")
+            micro_content_progress = MicroContentProgress.objects.create(micro_id=0, title="mc_aux")
             mc = [micro_content_progress]
-            unit_progress = UnitProgress.objects.create(name="unit_progress", micro_contents=mc)
+            unit_progress = UnitProgress.objects.create(unit_id=0, name="unit_progress", micro_contents=mc)
             progress = [unit_progress]
             student = Student.objects.create(user=user, faculty=request.POST["faculty"],
                                              birth_date=request.POST['birth_date'], progress=progress)
@@ -50,9 +50,9 @@ def update_student_progress(request, **kwargs):
     print(unit_micro_content)
     mc_list = []
     for mc in unit_micro_content:
-        mc_list.append(MicroContentProgress.objects.create(id=mc['id'], title=mc['title']))
+        mc_list.append(MicroContentProgress.objects.create(micro_id=mc['id'], title=mc['title']))
 
-    new_unit = UnitProgress.objects.create(id=kwargs['unit_id'], name=kwargs['unit'], micro_contents=mc_list)
+    new_unit = UnitProgress.objects.create(unit_id=kwargs['unit_id'], name=kwargs['unit'], micro_contents=mc_list)
 
     student = Student.objects.get(telegram_id=kwargs['id'])
     student.progress.append(new_unit)
@@ -70,11 +70,11 @@ def store_mark(request, **kwargs):
     student = Student.objects.get(telegram_id=request.POST['student_id'])
 
     for unit_id, unit in enumerate(student.progress):
-        if unit.id == int(request.POST['unit_id']):
+        if unit.unit_id == int(request.POST['unit_id']):
             break
 
     for microcontent_id, microcontent in enumerate(student.progress[unit_id].micro_contents):
-        if microcontent.id == int(request.POST['microcontent_id']):
+        if microcontent.micro_id == int(request.POST['microcontent_id']):
             break
 
     if float(request.POST['mark']) > student.progress[unit_id].micro_contents[microcontent_id].mark:
