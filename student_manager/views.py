@@ -10,7 +10,7 @@ from StudentManager import constants
 import logging
 from django.conf import settings
 
-appLog = settings.BASE_DIR + 'app.log'
+appLog = settings.BASE_DIR + '/app.log'
 logging.basicConfig(filename=appLog, filemode='w', format='%(levelname)s - %(message)s')
 
 def signup(request):
