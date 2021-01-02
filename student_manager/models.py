@@ -6,7 +6,7 @@ from djongo import models
 
 class MicroContentProgress(models.Model):
     #MOD: falla al crear el id (clave duplicada). Django la crea por defecto correctamente
-    #Modificado por MK. Le  quito como primer parámetro default=0 y lo redefino como AutoField
+    #Modificado por MK. Cambio o atributo id por micro_id e quitolle o de Primary Key.
     micro_id = models.IntegerField(default=0) 
     title = models.CharField(max_length=100)
     completed = models.BooleanField(default=False)
